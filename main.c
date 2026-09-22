@@ -31,11 +31,7 @@ int main(void)
 	while(1){
 		
 		P9OUT &= ~green;
-		SEND_CHAR_UART('A');
-		SEND_CHAR_UART('T');
-		if(rchar == 'O'){
-			P9OUT |= green;
-		}
+		SEND_STRING_UART("AT\r\n");
 			
 	}
 

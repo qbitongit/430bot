@@ -2,8 +2,9 @@
 #define UART_H
 #include <stdint.h>
 
-volatile uint8_t rchar;
-volatile bool txfull;
+extern volatile uint8_t rchar;
+extern volatile bool txfull;
+
 
 void SETUP_UART_PINS(void);
 void INITIALIZE_UART(void);
@@ -23,7 +24,7 @@ uint32_t RECEIVE_UART (void);
 #define UART_CLK_SEL     UCSSEL__SMCLK
 
 #ifndef UART_BAUD
-#define UART_BAUD        38400
+#define UART_BAUD        9600
 #endif
 
 #if   UART_BAUD == 9600
