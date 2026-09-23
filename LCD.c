@@ -6,14 +6,16 @@
 #include <stdlib.h>
 
 // The Position accounts for Offset of Alphanumeric character positions in the LCD Memory Map
-extern uint8_t Pos[6] = {9, 5, 3, 18, 14, 7};           // Define and populate Position, Range 0 - 5
+extern uint8_t Pos[6] = {9, 5, 3, 18, 14, 7};          // Define and populate Position, Range 0 - 5
+
+void showChar(char c, uint8_t p); //prototyping
 
 void scrollText(const char *text, uint16_t delay) {
     uint8_t textLen = strlen(text);
     uint8_t scrollPos = 0;
+    uint8_t i;
 
     while (1) {
-        uint8_t i;
         for (i = 0; i < 6; i++) {
             showChar(text[(scrollPos + i) % textLen], Pos[i]);
         }
@@ -30,6 +32,10 @@ void clearLCD(void){
         LCDMEM[Pos[i]] = 0x00;
     }
 
+    
+}
+
+void printAsHex(uint16_t data){
     
 }
 
@@ -81,34 +87,6 @@ const char  lower[26][2]  = {0x21,0x12, 0x3F,0x00, 0x1B,0x00, 0x7B,0x00, 0x1A,0x
 
 void LCDinit(void)
 {
-// ******************************************************************************************
-// *****  Basic LCD Initialization Copyright (c) 2014, Texas Instruments Incorporated   *****
-// ******************************************************************************************
-//  This examples configures the LCD in 4-Mux mode.
-//  The internal voltage is sourced to V2 through V4 and V5
-//  is connected to ground. Charge pump is enabled.
-//  It uses LCD pin L0~L21 and L26~L43 as segment pins.
-//  f(LCD) = 32768Hz/((1+1)*2^4) = 1024Hz, ACLK = 32768Hz,
-//  MCLK = SMCLK = default DCODIV 1MHz.
-//
-//      MSP430FR6989 / MSP-EXP430FR6989 Launchpad
-//              -----------------
-//          /|\|                 |
-//           | |              XIN|--
-//  GND      --|RST              |  32768Hz
-//   |         |             XOUT|--
-//   |         |                 |
-//   |         |             COM3|----------------|
-//   |         |             COM2|---------------||
-//   |--4.7uF -|LCDCAP       COM1|--------------|||
-//             |             COM0|-------------||||
-//             |                 |    -------------
-//             |           Sx~Sxx|---| 1 2 3 4 5 6 |
-//             |                 |    -------------
-//             |                 |       TI LCD
-//                                 (See MSP-EXP430FR6989 Schematic)
-//
-//*****************************************************************************
 // Initialize LCD segments 0 - 21; 26 - 43
    LCDCPCTL0 = 0xFFFF;
    LCDCPCTL1 = 0xFC3F;

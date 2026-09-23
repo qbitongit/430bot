@@ -112,6 +112,8 @@ __interrupt void USCI_A0_ISR(void) {
 
     if(UCA0IFG & UCRXIFG){
       rchar = (UCA0RXBUF & 0xFF);
+      //contains 12 bit raw EEG signal
+      //should bitmask later when testing
     }
     if(UCA0IFG & UCTXIFG){
       txfull = false;
