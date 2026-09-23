@@ -21,8 +21,7 @@ main.obj: ../hcsr04.h
 main.obj: ../clock.h
 main.obj: ../motor.h
 main.obj: ../uart.h
-main.obj: C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/string.h
-main.obj: C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/xlocale/_string.h
+main.obj: ../LCD.h
 
 ../main.c:
 
@@ -66,7 +65,5 @@ C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/stdbool.h:
 
 ../uart.h:
 
-C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/string.h:
-
-C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/xlocale/_string.h:
+../LCD.h:
 

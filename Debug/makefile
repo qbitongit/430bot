@@ -10,6 +10,7 @@ GEN_OPTS__FLAG :=
 GEN_CMDS__FLAG := 
 
 ORDERED_OBJS += \
+"./LCD.obj" \
 "./clock.obj" \
 "./hcsr04.obj" \
 "./main.obj" \
@@ -140,8 +141,8 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "clock.obj" "hcsr04.obj" "main.obj" "motor.obj" "uart.obj" 
-	-$(RM) "clock.d" "hcsr04.d" "main.d" "motor.d" "uart.d" 
+	-$(RM) "LCD.obj" "clock.obj" "hcsr04.obj" "main.obj" "motor.obj" "uart.obj" 
+	-$(RM) "LCD.d" "clock.d" "hcsr04.d" "main.d" "motor.d" "uart.d" 
 	-@echo ' '
 
 .PHONY: all clean dependents

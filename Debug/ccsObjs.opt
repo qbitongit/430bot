@@ -1,3 +1,4 @@
+"./LCD.obj"
 "./clock.obj"
 "./hcsr04.obj"
 "./main.obj"

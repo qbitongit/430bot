@@ -24,7 +24,7 @@ uint32_t RECEIVE_UART (void);
 #define UART_CLK_SEL     UCSSEL__SMCLK
 
 #ifndef UART_BAUD
-#define UART_BAUD        9600
+#define UART_BAUD        57600
 #endif
 
 #if   UART_BAUD == 9600

@@ -9,6 +9,7 @@ CMD_SRCS += \
 ../lnk_msp430fr6989.cmd 
 
 C_SRCS += \
+../LCD.c \
 ../clock.c \
 ../hcsr04.c \
 ../main.c \
@@ -16,6 +17,7 @@ C_SRCS += \
 ../uart.c 
 
 C_DEPS += \
+./LCD.d \
 ./clock.d \
 ./hcsr04.d \
 ./main.d \
@@ -23,6 +25,7 @@ C_DEPS += \
 ./uart.d 
 
 OBJS += \
+./LCD.obj \
 ./clock.obj \
 ./hcsr04.obj \
 ./main.obj \
@@ -30,6 +33,7 @@ OBJS += \
 ./uart.obj 
 
 OBJS__QUOTED += \
+"LCD.obj" \
 "clock.obj" \
 "hcsr04.obj" \
 "main.obj" \
@@ -37,6 +41,7 @@ OBJS__QUOTED += \
 "uart.obj" 
 
 C_DEPS__QUOTED += \
+"LCD.d" \
 "clock.d" \
 "hcsr04.d" \
 "main.d" \
@@ -44,6 +49,7 @@ C_DEPS__QUOTED += \
 "uart.d" 
 
 C_SRCS__QUOTED += \
+"../LCD.c" \
 "../clock.c" \
 "../hcsr04.c" \
 "../main.c" \

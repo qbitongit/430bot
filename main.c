@@ -5,7 +5,8 @@
 #include "clock.h"
 #include "motor.h"
 #include "uart.h"
-#include <string.h>
+#include "LCD.h"
+
 
 
 #define l_button BIT1
@@ -27,11 +28,18 @@ int main(void)
 	INITIALIZE_UART();
 	
 	P9DIR |= green;
-	
+	uint8_t i;
+	uint16_t num = 1;
 	while(1){
 		
-		P9OUT &= ~green;
-		SEND_STRING_UART("AT\r\n");
+		//enum parsing_state{AA1, AA2, }
+
+		for(i = 0; i < 16; i++){
+			num = num << i;
+			showChar(i, 0);
+			showChar(num,32);
+			delay1ms(1000);
+		}
 			
 	}
 
