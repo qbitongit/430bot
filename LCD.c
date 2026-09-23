@@ -6,7 +6,7 @@
 #include <stdlib.h>
 
 // The Position accounts for Offset of Alphanumeric character positions in the LCD Memory Map
-uint8_t Pos[6] = {9, 5, 3, 18, 14, 7};           // Define and populate Position, Range 0 - 5
+extern uint8_t Pos[6] = {9, 5, 3, 18, 14, 7};           // Define and populate Position, Range 0 - 5
 
 void scrollText(const char *text, uint16_t delay) {
     uint8_t textLen = strlen(text);
@@ -23,10 +23,20 @@ void scrollText(const char *text, uint16_t delay) {
     }
 }
 
+void clearLCD(void){
+    uint8_t i;
+    for(i = 6; i >= 1; i--){
+        LCDMEM[Pos[i]-1] = 0x00;
+        LCDMEM[Pos[i]] = 0x00;
+    }
+
+    
+}
+
 // *************************************************************************************************
 // **  Show Character at LCD Position, works with Space, Numbers, Upper and Lower case Characters **
 // *************************************************************************************************
-void showChar(char c, uint16_t position)
+void printChar(char c, uint8_t p)
 {
 // Space/Number Characters:  [  SP   ]  [   !   ]  [   "   ]  [   #   ]  [   $   ]  [   %   ]  [   &   ]  [   '   ]  [   (   ]  [   )   ]  [   *   ]  [   +   ]  [   ,   ]
 const char sp_num[26][2]  = {0x00,0x00, 0x60,0x01, 0x40,0x40, 0x61,0x50, 0xB7,0x50, 0x00,0x29, 0x10,0xCA, 0x00,0x20, 0x00,0x22, 0x00,0x88, 0x03,0xAA, 0x03,0x50, 0x00,0x08,
@@ -46,26 +56,26 @@ const char  lower[26][2]  = {0x21,0x12, 0x3F,0x00, 0x1B,0x00, 0x7B,0x00, 0x1A,0x
     if (c >= ' ' && c <= '9')
       {
         // Display special printable characters & Numbers
-        LCDMEM[position]   =  sp_num[c-32][0];
-        LCDMEM[position+1] =  sp_num[c-32][1];
+        LCDMEM[Pos[p]]   =  sp_num[c-32][0];
+        LCDMEM[Pos[p]+1] =  sp_num[c-32][1];
       }
     else if (c >= 'A' && c <= 'Z')
       {
         // Display Upper-case Letters
-        LCDMEM[position]   = upper[c-65][0];
-        LCDMEM[position+1] = upper[c-65][1];
+        LCDMEM[Pos[p]]   = upper[c-65][0];
+        LCDMEM[Pos[p]+1] = upper[c-65][1];
       }
     else if (c >= 'a' && c <= 'z')
       {
         // Display lower-case letters
-        LCDMEM[position]   = lower[c-97][0];
-        LCDMEM[position+1] = lower[c-97][1];
+        LCDMEM[Pos[p]]   = lower[c-97][0];
+        LCDMEM[Pos[p]+1] = lower[c-97][1];
       }
     else
       {
         // Turn all segments on for other character
-        LCDMEM[position]   = 0xFF;
-        LCDMEM[position+1] = 0xFA;
+        LCDMEM[Pos[p]]   = 0xFF;
+        LCDMEM[Pos[p]+1] = 0xFA;
       }
 }
 

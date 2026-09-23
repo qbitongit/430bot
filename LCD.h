@@ -5,9 +5,13 @@
 #include <msp430.h>
 #include <stdint.h>
 
+
+extern uint8_t Pos[6];
 void scrollText(const char *text, uint16_t delay_ms);
-void showChar(char c, uint16_t position);
+void printChar(char c, uint8_t p);
 void LCDinit(void);
+void clearLCD(void);
+
 
 
 #endif
