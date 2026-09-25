@@ -27,6 +27,11 @@ int main(void){
 	INITIALIZE_UART();
 	LCDinit();
 
+
+	//red/left led init
+	P1DIR |= red;
+	
+
 /*
 
 
@@ -55,5 +60,17 @@ int main(void){
 	}			
 
 */
+
+
+//talking to HC-05 in AT mode
+
+	while(1){
+
+		SEND_STRING_UART("HELLO\n");
+	
+		
+	}
+
+
 
 }

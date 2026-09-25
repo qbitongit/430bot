@@ -24,33 +24,54 @@ uint32_t RECEIVE_UART (void);
 #define UART_CLK_SEL     UCSSEL__SMCLK
 
 #ifndef UART_BAUD
-#define UART_BAUD        57600
+#define UART_BAUD        9600
 #endif
 
-#if   UART_BAUD == 9600
-/*  N = 8000000/9600 = 833.33  -> BRW=52, BRF=1, BRS=0x49 */
-#define UART_BRW         52
-#define UART_MCTLW       ((0x49 << 8) | UCOS16 | (0x01 << 4))
+#if UART_BAUD == 9600
+
+/* N = 1000000/9600 = 104.17
+ * UCOS16 = 1
+ * BRW = 6, BRF = 8, BRS = 0x20
+ */
+#define UART_BRW         6
+#define UART_MCTLW       ((0x20 << 8) | UCOS16 | (0x08 << 4))
 
 #elif UART_BAUD == 19200
-/*  N = 8000000/19200 = 416.67 -> BRW=26, BRF=0, BRS=0xB6 */
-#define UART_BRW         26
-#define UART_MCTLW       ((0xB6 << 8) | UCOS16 | (0x00 << 4))
+
+/* N = 1000000/19200 = 52.08
+ * UCOS16 = 1
+ * BRW = 3, BRF = 4, BRS = 0x02
+ */
+#define UART_BRW         3
+#define UART_MCTLW       ((0x02 << 8) | UCOS16 | (0x04 << 4))
 
 #elif UART_BAUD == 38400
-/*  N = 8000000/38400 = 208.33 -> BRW=13, BRF=0, BRS=0x84 */
-#define UART_BRW         13
-#define UART_MCTLW       ((0x84 << 8) | UCOS16 | (0x00 << 4))
+
+/* N = 1000000/38400 = 26.04
+ * UCOS16 = 1
+ * BRW = 1, BRF = 10, BRS = 0x00
+ */
+#define UART_BRW         1
+#define UART_MCTLW       ((0x00 << 8) | UCOS16 | (0x0A << 4))
 
 #elif UART_BAUD == 57600
-/*  N = 8000000/57600 = 138.89 -> BRW=8, BRF=10, BRS=0xF7 */
-#define UART_BRW         8
-#define UART_MCTLW       ((0xF7 << 8) | UCOS16 | (0x0A << 4))
+
+/* N = 1000000/57600 = 17.36
+ * UCOS16 = 0
+ * BRW = 17, BRS = 0x4A
+ */
+#define UART_BRW         17
+#define UART_MCTLW       (0x4A << 8)
 
 #elif UART_BAUD == 115200
-/*  N = 8000000/115200 = 69.44 -> BRW=4, BRF=5, BRS=0x55 */
-#define UART_BRW         4
-#define UART_MCTLW       ((0x55 << 8) | UCOS16 | (0x05 << 4))
+
+/* N = 1000000/115200 = 8.68
+ * UCOS16 = 0
+ * BRW = 8, BRS = 0xD6
+ */
+#define UART_BRW         8
+#define UART_MCTLW       (0xD6 << 8)
+
 
 #else
 #error "Unsupported UART_BAUD (use 9600/19200/38400/57600/115200)"
