@@ -11,7 +11,7 @@ void TA3ClockInit(void){
 
 void delay1us(uint16_t num){
     TA3CTL |= TACLR;//clear timer
-    while(TA3R <= num);
+    while( TA3R <= num);
 }
 
 void delay1ms(uint16_t num){

@@ -14,7 +14,7 @@
 #define red BIT0
 #define green BIT7 //9.7
 
-int main(void){
+int main(void) {
 	WDTCTL = WDTPW | WDTHOLD;	// stop watchdog timer
 	PM5CTL0 &= ~LOCKLPM5; //unlock outputs	
 	PMMCTL0 = PMMPW; // Open PMM Module
@@ -30,11 +30,6 @@ int main(void){
 
 	//red/left led init
 	P1DIR |= red;
-	uint16_t i;
-	for(i = 0; i<1000; i++){
-		printAsHex(i);
-		delay1ms(10);
-	}
 
 	
 /*

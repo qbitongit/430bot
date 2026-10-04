@@ -35,20 +35,34 @@ void clearLCD(void){
     
 }
 
+char intToHexChar(uint16_t num)
+{
+    uint8_t n = num & 0x0F;
+    if (n < 10)
+        return '0' + n;
+    else if(n < 16 )
+        return 'A' + (n - 10);
+    else return '0';
+}
+
 void printAsHex(uint16_t num){
     clearLCD();
     showChar('0', 0);
     showChar('x', 1);
-    uint8_t i;
-    for(i = 0; i<4; i++){
-      showChar(i+2, ((char)(num & (0x0F<<i))));
+    int8_t i;
+    char numChar[4];
+    for(i = 3; i >= 0; i--){
+      numChar[i] = intToHexChar(num >> (i*4));
+    }
+    for(i = 3; i >= 0; i--){
+      showChar(numChar[i], 5-i);
     }
 }
 
 // *************************************************************************************************
 // **  Show Character at LCD Position, works with Space, Numbers, Upper and Lower case Characters **
 // *************************************************************************************************
-void printChar(char c, uint8_t p)
+void showChar(char c, uint8_t p)
 {
 // Space/Number Characters:  [  SP   ]  [   !   ]  [   "   ]  [   #   ]  [   $   ]  [   %   ]  [   &   ]  [   '   ]  [   (   ]  [   )   ]  [   *   ]  [   +   ]  [   ,   ]
 const char sp_num[26][2]  = {0x00,0x00, 0x60,0x01, 0x40,0x40, 0x61,0x50, 0xB7,0x50, 0x00,0x29, 0x10,0xCA, 0x00,0x20, 0x00,0x22, 0x00,0x88, 0x03,0xAA, 0x03,0x50, 0x00,0x08,

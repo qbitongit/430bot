@@ -8,7 +8,8 @@
 
 extern uint8_t Pos[6];
 void scrollText(const char *text, uint16_t delay_ms);
-void printChar(char c, uint8_t p);
+void showChar(char c, uint8_t p);
+char intToHexChar(uint16_t n);
 void printAsHex(uint16_t);
 void LCDinit(void);
 void clearLCD(void);
