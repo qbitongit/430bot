@@ -14,7 +14,6 @@ C_SRCS += \
 ../hcsr04.c \
 ../main.c \
 ../motor.c \
-../parser.c \
 ../uart.c 
 
 C_DEPS += \
@@ -23,7 +22,6 @@ C_DEPS += \
 ./hcsr04.d \
 ./main.d \
 ./motor.d \
-./parser.d \
 ./uart.d 
 
 OBJS += \
@@ -32,7 +30,6 @@ OBJS += \
 ./hcsr04.obj \
 ./main.obj \
 ./motor.obj \
-./parser.obj \
 ./uart.obj 
 
 OBJS__QUOTED += \
@@ -41,7 +38,6 @@ OBJS__QUOTED += \
 "hcsr04.obj" \
 "main.obj" \
 "motor.obj" \
-"parser.obj" \
 "uart.obj" 
 
 C_DEPS__QUOTED += \
@@ -50,7 +46,6 @@ C_DEPS__QUOTED += \
 "hcsr04.d" \
 "main.d" \
 "motor.d" \
-"parser.d" \
 "uart.d" 
 
 C_SRCS__QUOTED += \
@@ -59,7 +54,6 @@ C_SRCS__QUOTED += \
 "../hcsr04.c" \
 "../main.c" \
 "../motor.c" \
-"../parser.c" \
 "../uart.c" 
 
 

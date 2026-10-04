@@ -10,6 +10,8 @@ void SETUP_UART_PINS(void);
 void INITIALIZE_UART(void);
 
 void SEND_CHAR_UART(unsigned char data);
+void set_baud_9600(void);
+void set_baud_57600(void);
 void SEND_STRING_UART(const char *data);
 void SEND_INTEGER_UART(uint32_t num);
 uint32_t RECEIVE_UART (void);
@@ -24,7 +26,7 @@ uint32_t RECEIVE_UART (void);
 #define UART_CLK_SEL     UCSSEL__SMCLK
 
 #ifndef UART_BAUD
-#define UART_BAUD        9600
+#define UART_BAUD        57600
 #endif
 
 #if UART_BAUD == 9600

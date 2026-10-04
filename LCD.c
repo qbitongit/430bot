@@ -35,8 +35,14 @@ void clearLCD(void){
     
 }
 
-void printAsHex(uint16_t data){
-    
+void printAsHex(uint16_t num){
+    clearLCD();
+    showChar('0', 0);
+    showChar('x', 1);
+    uint8_t i;
+    for(i = 0; i<4; i++){
+      showChar(i+2, ((char)(num & (0x0F<<i))));
+    }
 }
 
 // *************************************************************************************************

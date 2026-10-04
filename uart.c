@@ -64,6 +64,16 @@ void INITIALIZE_UART(void) {
   
 }
 
+void set_baud_9600(void){
+  UCA0BRW =  6;
+  UCA0MCTLW = ((0x20 << 8) | UCOS16 | (0x08 << 4));
+}
+
+void set_baud_57600(void){
+  UCA0BRW =  17;
+  UCA0MCTLW = (0x4A << 8);
+}
+
 void SEND_CHAR_UART(unsigned char data) { // ASCII Character -> parse ASCII(1,2,3,4)
   // wait for UART port if busy
   while (txfull);
@@ -112,8 +122,7 @@ __interrupt void USCI_A0_ISR(void) {
 
     if(UCA0IFG & UCRXIFG){
       rchar = (UCA0RXBUF & 0xFF);
-      //contains 12 bit raw EEG signal
-      //should bitmask later when testing
+      //current char
     }
     if(UCA0IFG & UCTXIFG){
       txfull = false;

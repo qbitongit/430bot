@@ -30,47 +30,102 @@ int main(void){
 
 	//red/left led init
 	P1DIR |= red;
-	
+	uint16_t i;
+	for(i = 0; i<1000; i++){
+		printAsHex(i);
+		delay1ms(10);
+	}
 
+	
 /*
+	//parsing fsm to get raw data and transmit thru bluetooth
+	enum parseState{AA1, AA2, code, eeg_length, hiEEG, lowEEG, transmit} state, prevState;
+	bool isNewState;
+	state = AA1;
+	prevState = transmit;
+	uint16_t rawEEG;
+	uint8_t stateTimer = 0;
 
-
-	uint32_t sum;
-	uint16_t avg
 
 	while(1){
 
+		isNewState = !(state == prevState);
+
+		switch(state){
+		//AA1: checks if rchar == AA before moving to AA2
+			case AA1:
+				if(rchar == 0xAA){
+					state = AA2;
+				}
+			break;
+
+		//AA2: checks if rchar == AA then moves to waiting for code
 		
+			case AA2:
+				if(rchar == 0xAA){
+					state = code;
+				}
+				else{
+					state = AA2;
+				}
+			break;
+		//code: if rchar == 0x80 go to eeg_lenth
+			case code:
+				if(isNewState){
+					stateTimer = 0;
+				}
+				while(stateTimer < 200){
+					stateTimer++;
+					if(rchar == 0x80){
+						state = eeg_length;
+					}
+				}
+				state = AA1;
+			break;
+			
+		//eeg_length: if rchar == 0x02 move to eeg
+
+			case eeg_length:
+				if(isNewState){
+					stateTimer = 0;
+				}
+				while(stateTimer < 200){
+					stateTimer++;
+					if(rchar == 0x02){
+						state = hiEEG;
+					}
+				}
+				state = AA1;
+			break;
+
+			case hiEEG:
+				rawEEG |= (rchar << 8);
+				state = lowEEG;
+			break;
+
+			case lowEEG:
+				rawEEG |= rchar;
+				state = transmit;
+			break;
+
+			case transmit:
+				//write to LCD
+				printAsHex(rawEEG);
+				//set baud 9600 for HC-05
+				set_baud_9600();
+				SEND_INTEGER_UART(rawEEG);
+				while(txfull);
+				set_baud_57600();
+				state = AA1;
+
+			default:
+				state = AA1;
+			break;
 				
-		find avg of signal every second:
-		for(65563)
-			parse rchar
-			if rchar == eeg
-				sum += rchar
-		
-		
-		avg=sum >> 16;
-
-		print on lcd in hex
-
-		delay
-		
-		
-		
-	}			
-
-*/
-
-
-//talking to HC-05 in AT mode
-
-	while(1){
-
-		SEND_STRING_UART("HELLO\n");
-	
+		}
 		
 	}
 
 
-
+*/
 }

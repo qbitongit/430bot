@@ -15,7 +15,6 @@ ORDERED_OBJS += \
 "./hcsr04.obj" \
 "./main.obj" \
 "./motor.obj" \
-"./parser.obj" \
 "./uart.obj" \
 "../lnk_msp430fr6989.cmd" \
 $(GEN_CMDS__FLAG) \
@@ -142,8 +141,8 @@ all: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "LCD.obj" "clock.obj" "hcsr04.obj" "main.obj" "motor.obj" "parser.obj" "uart.obj" 
-	-$(RM) "LCD.d" "clock.d" "hcsr04.d" "main.d" "motor.d" "parser.d" "uart.d" 
+	-$(RM) "LCD.obj" "clock.obj" "hcsr04.obj" "main.obj" "motor.obj" "uart.obj" 
+	-$(RM) "LCD.d" "clock.d" "hcsr04.d" "main.d" "motor.d" "uart.d" 
 	-@echo ' '
 
 .PHONY: all clean dependents
