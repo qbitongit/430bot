@@ -26,21 +26,21 @@ int main(void) {
 	SETUP_UART_PINS(); //4.2 = TX, 4.3 = RX (UART0)
 	INITIALIZE_UART();
 	LCDinit();
-
+	
 
 	//red/left led init
 	P1DIR |= red;
 
-	
-/*
+	uint16_t rawEEG = 0;
+
+
 	//parsing fsm to get raw data and transmit thru bluetooth
 	enum parseState{AA1, AA2, code, eeg_length, hiEEG, lowEEG, transmit} state, prevState;
 	bool isNewState;
 	state = AA1;
 	prevState = transmit;
-	uint16_t rawEEG;
 	uint8_t stateTimer = 0;
-
+	
 
 	while(1){
 
@@ -49,7 +49,11 @@ int main(void) {
 		switch(state){
 		//AA1: checks if rchar == AA before moving to AA2
 			case AA1:
+			//turn led off
+				P1OUT &= red;
 				if(rchar == 0xAA){
+					//turn led on
+					P1OUT |= red;
 					state = AA2;
 				}
 			break;
@@ -106,11 +110,16 @@ int main(void) {
 			case transmit:
 				//write to LCD
 				printAsHex(rawEEG);
+				
 				//set baud 9600 for HC-05
+				/*
 				set_baud_9600();
 				SEND_INTEGER_UART(rawEEG);
 				while(txfull);
 				set_baud_57600();
+				*/
+				
+				
 				state = AA1;
 
 			default:
@@ -122,5 +131,4 @@ int main(void) {
 	}
 
 
-*/
 }

@@ -2,6 +2,7 @@
 #include <stdint.h>
 #include "clock.h"
 #include "uart.h"
+#include "LCD.h"
 
 volatile uint8_t rchar = 0;
 volatile bool txfull = 0;
@@ -40,7 +41,7 @@ void INITIALIZE_UART(void) {
   // but I added anyways to be more flexible in future applications
 
   // UCA0CTLW0 = UCSWRST; // Reset all fields (optional)
-  UCA0CTLW0 |= UCSWRST; // enable reset state (this will allow us to edit the settings)
+  UCA0CTLW0 = UCSWRST; // enable reset state (this will allow us to edit the settings)
   UCA0CTLW0 &= ~UCPEN;        // 0 for ParityDisable, 1 for enable
   UCA0CTLW0 &= ~UCMSB;        // 0 for LSB first, 1 for MSB first
   UCA0CTLW0 |= UCSSEL__SMCLK; // Use SMCLK

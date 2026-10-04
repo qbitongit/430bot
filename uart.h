@@ -58,12 +58,15 @@ uint32_t RECEIVE_UART (void);
 
 #elif UART_BAUD == 57600
 
-/* N = 1000000/57600 = 17.36
- * UCOS16 = 0
- * BRW = 17, BRS = 0x4A
+/* N = 16000000/57600 = 277.7777
+ * UCOS16 = 1 --> 17.361
+ * BRW = 17
+ BRS = 0x4A --> 0.3575
  */
-#define UART_BRW         17
-#define UART_MCTLW       (0x4A << 8)
+ 
+#define UART_BRW    17
+#define UART_MCTLW (UCOS16 | (0x4A << 8))
+
 
 #elif UART_BAUD == 115200
 

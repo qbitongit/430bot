@@ -19,6 +19,7 @@ uart.obj: C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/sys/
 uart.obj: ../clock.h
 uart.obj: C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/stdbool.h
 uart.obj: ../uart.h
+uart.obj: ../LCD.h
 
 ../uart.c:
 
@@ -57,4 +58,6 @@ C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/sys/_stdint.h:
 C:/ti/ccs2100/ccs/tools/compiler/ti-cgt-msp430_21.6.2.LTS/include/stdbool.h:
 
 ../uart.h:
+
+../LCD.h:
 
