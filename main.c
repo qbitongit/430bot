@@ -31,11 +31,13 @@ int main(void) {
 	//red/left led init
 	P1DIR |= red;
 
-	uint16_t rawEEG = 0;
+	uint8_t med_score = 0;
+	uint8_t att_score = 0;
+	uint16_t med_att = 0;
 
 
 	//parsing fsm to get raw data and transmit thru bluetooth
-	enum parseState{AA1, AA2, code, eeg_length, hiEEG, lowEEG, transmit} state, prevState;
+	enum parseState{AA1, AA2, att_code, attention, med_code, meditation, transmit} state, prevState;
 	bool isNewState;
 	state = AA1;
 	prevState = transmit;
@@ -62,54 +64,54 @@ int main(void) {
 		
 			case AA2:
 				if(rchar == 0xAA){
-					state = code;
+					state = att_code;
 				}
 				else{
 					state = AA2;
 				}
 			break;
 		//code: if rchar == 0x80 go to eeg_lenth
-			case code:
-				if(isNewState){
-					stateTimer = 0;
+			case att_code:
+				
+				if(rchar == 0x04){
+				while(rchar == 0x04); //wait till code is done
+					state = attention;
 				}
-				while(stateTimer < 200){
-					stateTimer++;
-					if(rchar == 0x80){
-						state = eeg_length;
-					}
-				}
-				state = AA1;
 			break;
 			
 		//eeg_length: if rchar == 0x02 move to eeg
 
-			case eeg_length:
-				if(isNewState){
-					stateTimer = 0;
-				}
-				while(stateTimer < 200){
-					stateTimer++;
-					if(rchar == 0x02){
-						state = hiEEG;
-					}
-				}
-				state = AA1;
+			case attention:
+				
+				att_score = rchar;
+				state = med_code;
+			
 			break;
 
-			case hiEEG:
-				rawEEG |= (rchar << 8);
-				state = lowEEG;
+			case med_code:
+
+				if(rchar == 0x05){
+					while(rchar == 0x05); //wait till code is done
+					state = meditation;
+				}
+
 			break;
 
-			case lowEEG:
-				rawEEG |= rchar;
+			case meditation:
+
+				med_score = rchar;
 				state = transmit;
+
 			break;
+
 
 			case transmit:
 				//write to LCD
-				printAsHex(rawEEG);
+				
+				med_att = med_score;
+				med_att = (med_att << 8) | att_score;
+				
+				printAsHex(med_att);
 				
 				//set baud 9600 for HC-05
 				/*
@@ -118,7 +120,6 @@ int main(void) {
 				while(txfull);
 				set_baud_57600();
 				*/
-				
 				
 				state = AA1;
 
